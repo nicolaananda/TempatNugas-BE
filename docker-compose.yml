@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  product-service:
+    build: .
+    container_name: tempatnugas-be
+    ports:
+      - "7001:7001"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongovolume:/data/db
+      - mongoconfig:/data/configdb
+
+volumes:
+  mongovolume:
+  mongoconfig:
