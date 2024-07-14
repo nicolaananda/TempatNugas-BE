@@ -7,5 +7,7 @@
     "strict": true,
     "esModuleInterop": true
   },
+  "typeRoots": ["./node_modules/@types"],
+  "moduleResolution": "node",
   "include": ["src"]
 }
