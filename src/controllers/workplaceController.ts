@@ -46,4 +46,20 @@ export const workplaceController = {
       return res.status(500).json({ message: "Error adding Workplace", error });
     }
   },
+
+  workplaceSingle: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      const workplace = await Workplace.findById(id);
+      if (!workplace) {
+        return res.status(404).json({ message: "Workplace not found" });
+      }
+      return res.json(workplace);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error fetching workplace", error });
+    }
+  },
 };
