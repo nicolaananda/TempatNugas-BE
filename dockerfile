@@ -7,12 +7,12 @@ WORKDIR /app
 COPY package*.json ./
 
 # Menginstal dependensi
-RUN npm install
+RUN pnpm install
 
 # Menyalin seluruh proyek ke dalam kontainer
 COPY . .
 
-EXPOSE 8009
+EXPOSE 7001
 
 # Menjalankan perintah default
-CMD ["npm", "run", "dev"]
+CMD ["pnpm", "run", "dev"]

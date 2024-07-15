@@ -21,3 +21,7 @@ workplaceRouter.post(
   upload.single("file"),
   workplaceController.createData
 );
+workplaceRouter.get("/:id", workplaceController.workplaceSingle);
+workplaceRouter.get("/:id/reviews", (req, res) => {
+  res.json({ message: "Hello ini single page review!" });
+});
