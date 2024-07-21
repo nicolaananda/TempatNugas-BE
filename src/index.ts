@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { workplaceRouter } from "./routes/wokrplaceRouter";
+import { authRouter } from "./routes/authRouter";
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.use(express.urlencoded({ extended: true })); //read formData
 app.use(express.static("public"));
 
 app.use("/workplaces", workplaceRouter);
-// app.use("/auth", authRouter);
+app.use("/auth", authRouter);
 
 app.get("/", (req, res) => res.json({ message: "Hello World!" }));
 
