@@ -1,15 +1,11 @@
 import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  address: { type: String, required: true },
-  city: { type: String, required: true },
-  foodprices: { type: String },
-  file: { type: String },
-  authorId: { type: String, required: true },
-  isPublished: { type: Boolean, default: false },
-  isVerified: { type: Boolean, default: false },
+  content: { type: String, required: true },
+  electricity: { type: Number, required: true, min: 0, max: 5 },
+  internet: { type: Number, required: true, min: 0, max: 5 },
+  userId: { type: String, required: true },
+  workplaceId: { type: String },
 });
 
 export const Review = mongoose.model("Review", reviewSchema);
