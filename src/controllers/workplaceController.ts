@@ -62,13 +62,12 @@ export const workplaceController = {
         .json({ message: "Error fetching workplace", error });
     }
   },
+
   deleteData: async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
 
-      const workplace = await Workplace.findByIdAndDelete(id, {
-        writeConcern: { w: "majority" },
-      });
+      const workplace = await Workplace.findByIdAndDelete(id);
       if (!workplace) {
         return res.status(404).json({ message: "Workplace not found" });
       }
