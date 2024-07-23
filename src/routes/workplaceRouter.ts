@@ -1,7 +1,8 @@
 import express from "express";
 import multer, { StorageEngine } from "multer";
 import { workplaceController } from "../controllers/workplaceController";
-
+import { authRouter } from "./authRouter";
+import { reviewRouter } from "./reviewRouter";
 const storage: StorageEngine = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "./public/");
@@ -22,6 +23,7 @@ workplaceRouter.post(
   workplaceController.createData
 );
 workplaceRouter.get("/:id", workplaceController.workplaceSingle);
-workplaceRouter.get("/:id/reviews", (req, res) => {
-  res.json({ message: "Hello ini single page review!" });
-});
+
+workplaceRouter.use("/auth", authRouter);
+workplaceRouter.delete("/:id", workplaceController.deleteData);
+workplaceRouter.use("/:id/reviews", reviewRouter);

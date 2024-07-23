@@ -5,7 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authRouter } from "./routes/authRouter";
 import { workplaceRouter } from "./routes/workplaceRouter";
-
+import { authRouter } from "./routes/authRouter";
 
 dotenv.config();
 
