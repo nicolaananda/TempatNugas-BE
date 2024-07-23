@@ -66,7 +66,9 @@ export const workplaceController = {
     try {
       const { id } = req.params;
 
-      const workplace = await Workplace.findByIdAndDelete(id);
+      const workplace = await Workplace.findByIdAndDelete(id, {
+        writeConcern: { w: "majority" },
+      });
       if (!workplace) {
         return res.status(404).json({ message: "Workplace not found" });
       }

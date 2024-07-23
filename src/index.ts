@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { workplaceRouter } from "./routes/wokrplaceRouter";
+import { workplaceRouter } from "./routes/workplaceRouter";
 import { authRouter } from "./routes/authRouter";
 
 dotenv.config();
@@ -10,7 +10,7 @@ mongoose
   .connect(process.env.MONGODB_URL!)
   .then(() => console.log("connected to mongo"))
   .catch(() => console.error("Monggo connection error"));
-
+console.log(process.env.MONGODB_URL);
 const app = express();
 const PORT = 7001;
 app.use(express.json()); //read json

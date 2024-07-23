@@ -27,3 +27,4 @@ workplaceRouter.get("/:id/reviews", (req, res) => {
   res.json({ message: "Hello ini single page review!" });
 });
 workplaceRouter.use("/auth", authRouter);
+workplaceRouter.delete("/:id", workplaceController.deleteData);
