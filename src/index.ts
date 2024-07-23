@@ -5,8 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authRouter } from "./routes/authRouter";
 import { workplaceRouter } from "./routes/workplaceRouter";
-import { authMiddleware } from "./controllers/authMiddleware";
-import { generalMiddleware } from "./controllers/middleware";
+
 
 dotenv.config();
 
@@ -29,12 +28,10 @@ app.use(express.json()); // read JSON
 app.use(express.urlencoded({ extended: true })); // read formData
 app.use(express.static("public"));
 
-// Middleware umum yang diterapkan untuk semua rute
-app.use(generalMiddleware);
 
 // Routers
-app.use("/api/auth", authRouter);
-app.use("/api/workplaces", authMiddleware, workplaceRouter);
+app.use("/auth", authRouter);
+app.use("/workplaces", workplaceRouter);
 
 // Root route
 app.get("/", (req, res) => res.json({ message: "Hello World!" }));

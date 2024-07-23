@@ -79,54 +79,6 @@ export async function handleLoginJWT(req: Request, res: Response) {
     }
 }
 
-// Login with Session
-export async function handleLoginSession(req: Request, res: Response) {
-    const { email, password } = req.body;
-
-    try {
-        if (!email || !password) {
-            return res.status(400).json({ status: 400, message: "Please provide email and password" });
-        }
-
-        const user = await User.findOne({ email }) as IUser | null;
-
-        if (!user) {
-            return res.status(404).json({ status: 404, message: "Account not found" });
-        }
-
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
-        if (!isPasswordMatch) {
-            return res.status(403).json({ status: 403, message: "Login error due to invalid password" });
-        }
-
-        const newSession = new Session({
-            userId: user._id,
-        });
-        const session = await newSession.save();
-
-        res.cookie("session_id", session._id, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 3600000 // 1 jam
-        });
-
-        return res.json({
-            status: 200,
-            message: "User login successfully",
-            data: {
-                name: user.name,
-                email: user.email,
-                avatarUrl: user.avatarUrl,
-                role: user.role
-            }
-        });
-    } catch (error) {
-        const err = error as Error;
-        res.status(500).json({ status: 500, message: "User login error", error: err.message });
-    }
-}
-
-// Logout
 export async function handleLogout(req: Request, res: Response) {
     const session_id = req.cookies?.session_id;
 
@@ -141,3 +93,14 @@ export async function handleLogout(req: Request, res: Response) {
         res.status(500).json({ status: 500, message: "Logout error", error: err.message });
     }
 }
+
+// export async function handleLoginWithGoogle(req: Request, res: Response) {
+//     const state = generateState(); // SHA256
+//     const code = generateCodeVerifier();
+
+//     const url = await google.createAuthorizationURL(state, code, {
+//         scopes: ["email", "profile"],
+//     });
+
+//     console.log(url.href)
+// }
