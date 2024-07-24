@@ -19,9 +19,7 @@ export const workplaceController = {
       const allWorkplaces = await Workplace.find(CLAUSES);
       return res.json(allWorkplaces);
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Error fetching Workplaces", error });
+      return res.status(500).json({ message: "Error fetching Workplaces", error });
     }
   },
 
@@ -57,9 +55,7 @@ export const workplaceController = {
       }
       return res.json(workplace);
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Error fetching workplace", error });
+      return res.status(500).json({ message: "Error fetching workplace", error });
     }
   },
 
@@ -73,9 +69,7 @@ export const workplaceController = {
       }
       return res.json({ message: "Workplace deleted successfully" });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Error deleting Workplace", error });
+      return res.status(500).json({ message: "Error deleting Workplace", error });
     }
   },
 };

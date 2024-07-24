@@ -5,16 +5,16 @@ export const reviewController = {
   getReviews: async (req: Request, res: Response) => {
     try {
       const { id: workplaceId } = req.params;
-      const reviews = await Review.find({ workplaceId });
+      const reviews = await Review.find({ workplaceId }).populate("userId", "name avatarUrl");
+      console.log({ workplaceId });
+
       return res.status(200).json({
         status: 200,
         message: "Successfully delivered reviews",
         data: reviews,
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ status: 500, message: "Error fetching reviews", error });
+      return res.status(500).json({ status: 500, message: "Error fetching reviews", error });
     }
   },
 
@@ -23,9 +23,7 @@ export const reviewController = {
       const { id: workplaceId, reviewId } = req.params;
       const review = await Review.findOne({ _id: reviewId, workplaceId });
       if (!review) {
-        return res
-          .status(404)
-          .json({ status: 404, message: "Review not found" });
+        return res.status(404).json({ status: 404, message: "Review not found" });
       }
       return res.status(200).json({
         status: 200,
@@ -33,16 +31,14 @@ export const reviewController = {
         data: review,
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ status: 500, message: "Error fetching review", error });
+      return res.status(500).json({ status: 500, message: "Error fetching review", error });
     }
   },
 
   createReview: async (req: Request, res: Response) => {
     try {
-      const { workplaceId } = req.params;
-      const { content, internet, electricity, userId, workplaceID } = req.body;
+      const { id: workplaceId } = req.params;
+      const { content, internet, electricity, userId } = req.body;
 
       const newReview = new Review({
         workplaceId,
@@ -50,7 +46,6 @@ export const reviewController = {
         internet,
         electricity,
         userId,
-        workplaceID,
       });
 
       const savedReview = await newReview.save();
@@ -60,9 +55,7 @@ export const reviewController = {
         data: savedReview,
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ status: 500, message: "Failed to post a new review", error });
+      return res.status(500).json({ status: 500, message: "Failed to post a new review", error });
     }
   },
 
@@ -71,16 +64,10 @@ export const reviewController = {
       const { id: workplaceId, reviewId } = req.params;
       const { content, internet, electricity } = req.body;
 
-      const updatedReview = await Review.findOneAndUpdate(
-        { _id: reviewId, workplaceId },
-        { content, internet, electricity },
-        { new: true }
-      );
+      const updatedReview = await Review.findOneAndUpdate({ _id: reviewId, workplaceId }, { content, internet, electricity }, { new: true });
 
       if (!updatedReview) {
-        return res
-          .status(404)
-          .json({ status: 404, message: "Review not found" });
+        return res.status(404).json({ status: 404, message: "Review not found" });
       }
 
       return res.status(200).json({
@@ -89,9 +76,7 @@ export const reviewController = {
         data: updatedReview,
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ status: 500, message: "Error updating review", error });
+      return res.status(500).json({ status: 500, message: "Error updating review", error });
     }
   },
 
@@ -104,18 +89,12 @@ export const reviewController = {
         workplaceId,
       });
       if (!deletedReview) {
-        return res
-          .status(404)
-          .json({ status: 404, message: "Review not found" });
+        return res.status(404).json({ status: 404, message: "Review not found" });
       }
 
-      return res
-        .status(200)
-        .json({ status: 200, message: "Review deleted successfully" });
+      return res.status(200).json({ status: 200, message: "Review deleted successfully" });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ status: 500, message: "Error deleting review", error });
+      return res.status(500).json({ status: 500, message: "Error deleting review", error });
     }
   },
 };

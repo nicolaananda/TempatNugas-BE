@@ -5,7 +5,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authRouter } from "./routes/authRouter";
 import { workplaceRouter } from "./routes/workplaceRouter";
-import { authRouter } from "./routes/authRouter";
 
 dotenv.config();
 
@@ -20,14 +19,13 @@ mongoose
   .catch((err) => console.error("Mongo connection error:", err.message));
 
 const app = express();
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 7001;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 7001;
 
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json()); // read JSON
 app.use(express.urlencoded({ extended: true })); // read formData
-app.use(express.static("public"));
-
+app.use("/public", express.static("public"));
 
 // Routers
 app.use("/auth", authRouter);
