@@ -6,6 +6,7 @@ const workplaceSchema = new mongoose.Schema({
   address: { type: String, required: true },
   city: { type: String, required: true },
   file: { type: String },
+  foodPrice: { type: String, required: true },
   authorId: { type: Schema.Types.ObjectId, ref: "User" },
   isPublished: { type: Boolean, default: false },
   isVerified: { type: Boolean, default: false },
