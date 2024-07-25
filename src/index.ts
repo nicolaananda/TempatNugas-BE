@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { authRouter } from "./routes/authRouter";
 import { workplaceRouter } from "./routes/workplaceRouter";
+import { eventRouter } from "./routes/eventRouter";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use("/public", express.static("public"));
 // Routers
 app.use("/auth", authRouter);
 app.use("/workplaces", workplaceRouter);
+app.use("/events", eventRouter);
 
 // Root route
 app.get("/", (req, res) => res.json({ message: "Hello World!" }));

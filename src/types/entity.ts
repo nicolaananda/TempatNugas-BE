@@ -15,3 +15,14 @@ export interface ISession extends Document {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+// Tipe untuk Event
+export interface IEvent extends Document {
+    title: string;
+    description: string;
+    dateTime: string;
+    eventWorkplace: string;
+    eventAddress: string;
+    userId: Schema.Types.ObjectId;
+    workplaceId: Schema.Types.ObjectId;
+}
