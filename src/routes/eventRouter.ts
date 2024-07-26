@@ -11,3 +11,6 @@ eventRouter.get("/", eventController.allEvents);
 
 // Rute untuk mendapatkan event tunggal berdasarkan ID
 eventRouter.get("/:id", eventController.eventSingle);
+
+// Rute untuk menghapus event tunggal berdasarkan ID
+eventRouter.delete("/:id", eventController.deleteEvent);
